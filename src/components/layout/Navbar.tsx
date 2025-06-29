@@ -3,14 +3,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
-import { useTheme } from '../../contexts/ThemeContext';
 import { Button } from "@/components/ui/button";
 import { 
   Menu, 
   X, 
   Sparkles, 
-  Sun, 
-  Moon, 
   User, 
   LogOut,
   Image,
@@ -25,7 +22,6 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
-  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -34,10 +30,13 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  const navItems = [
+  const publicNavItems = [
     { name: 'Gallery', path: '/memes', icon: Image },
-    { name: 'Templates', path: '/templates', icon: Upload },
     { name: 'Trending', path: '/trending', icon: TrendingUp },
+  ];
+
+  const protectedNavItems = [
+    { name: 'Templates', path: '/templates', icon: Upload },
   ];
 
   const publicPages = [
@@ -48,7 +47,7 @@ const Navbar = () => {
 
   return (
     <motion.nav 
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700"
+      className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-lg border-b border-slate-700"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
@@ -64,20 +63,34 @@ const Navbar = () => {
             >
               <Sparkles className="h-6 w-6 text-white" />
             </motion.div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
               GiggleGen
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => {
+            {publicNavItems.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-1 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="flex items-center space-x-1 text-slate-300 hover:text-blue-400 transition-colors"
+                >
+                  <Icon className="h-4 w-4" />
+                  <span>{item.name}</span>
+                </Link>
+              );
+            })}
+            
+            {isAuthenticated && protectedNavItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="flex items-center space-x-1 text-slate-300 hover:text-blue-400 transition-colors"
                 >
                   <Icon className="h-4 w-4" />
                   <span>{item.name}</span>
@@ -91,7 +104,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-1 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="flex items-center space-x-1 text-slate-300 hover:text-blue-400 transition-colors"
                 >
                   <Icon className="h-4 w-4" />
                   <span>{item.name}</span>
@@ -100,17 +113,8 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Theme Toggle & Auth */}
+          {/* Auth Section */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="p-2"
-            >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
-
             {isAuthenticated ? (
               <div className="flex items-center space-x-2">
                 <Link to="/dashboard">
@@ -120,7 +124,7 @@ const Navbar = () => {
                   </Button>
                 </Link>
                 <Link to="/profile">
-                  <Button variant="ghost" size="sm" className="flex items-center space-x-1">
+                  <Button variant="ghost" size="sm" className="flex items-center space-x-1 text-slate-300 hover:text-white hover:bg-slate-700">
                     <User className="h-4 w-4" />
                     <span>{user?.username}</span>
                   </Button>
@@ -129,7 +133,7 @@ const Navbar = () => {
                   variant="ghost"
                   size="sm"
                   onClick={handleLogout}
-                  className="p-2"
+                  className="p-2 text-slate-300 hover:text-white hover:bg-slate-700"
                 >
                   <LogOut className="h-4 w-4" />
                 </Button>
@@ -137,7 +141,9 @@ const Navbar = () => {
             ) : (
               <div className="flex items-center space-x-2">
                 <Link to="/login">
-                  <Button variant="ghost">Login</Button>
+                  <Button variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-700">
+                    Login
+                  </Button>
                 </Link>
                 <Link to="/register">
                   <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
@@ -154,7 +160,7 @@ const Navbar = () => {
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2"
+              className="p-2 text-slate-300 hover:text-white"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -165,19 +171,34 @@ const Navbar = () => {
       {/* Mobile menu */}
       {isOpen && (
         <motion.div
-          className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700"
+          className="md:hidden bg-slate-900 border-t border-slate-700"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item) => {
+            {publicNavItems.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-2 px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md"
+                  className="flex items-center space-x-2 px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span>{item.name}</span>
+                </Link>
+              );
+            })}
+            
+            {isAuthenticated && protectedNavItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="flex items-center space-x-2 px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
                   <Icon className="h-4 w-4" />
@@ -192,7 +213,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-2 px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md"
+                  className="flex items-center space-x-2 px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
                   <Icon className="h-4 w-4" />
@@ -200,31 +221,19 @@ const Navbar = () => {
                 </Link>
               );
             })}
-            
-            <div className="px-3 py-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={toggleTheme}
-                className="w-full justify-start"
-              >
-                {isDark ? <Sun className="h-4 w-4 mr-2" /> : <Moon className="h-4 w-4 mr-2" />}
-                {isDark ? 'Light Mode' : 'Dark Mode'}
-              </Button>
-            </div>
 
             {isAuthenticated ? (
               <>
                 <Link
                   to="/dashboard"
-                  className="block px-3 py-2 text-blue-600 font-medium"
+                  className="block px-3 py-2 text-blue-400 font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   Dashboard
                 </Link>
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-2 px-3 py-2 text-slate-700 dark:text-slate-200"
+                  className="flex items-center space-x-2 px-3 py-2 text-slate-300"
                   onClick={() => setIsOpen(false)}
                 >
                   <User className="h-4 w-4" />
@@ -232,7 +241,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-2 px-3 py-2 text-slate-700 dark:text-slate-200 w-full text-left"
+                  className="flex items-center space-x-2 px-3 py-2 text-slate-300 w-full text-left"
                 >
                   <LogOut className="h-4 w-4" />
                   <span>Logout</span>
@@ -242,14 +251,14 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="block px-3 py-2 text-slate-700 dark:text-slate-200"
+                  className="block px-3 py-2 text-slate-300"
                   onClick={() => setIsOpen(false)}
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="block px-3 py-2 text-blue-600 font-medium"
+                  className="block px-3 py-2 text-blue-400 font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   Sign Up

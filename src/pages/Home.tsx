@@ -2,10 +2,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
 import { Button } from "@/components/ui/button";
 import { Sparkles, Brain, Users, TrendingUp, Zap } from 'lucide-react';
 
 const Home = () => {
+  const { isAuthenticated } = useAuth();
+
   const features = [
     {
       icon: Brain,
@@ -41,10 +44,10 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white overflow-hidden">
+    <div className="min-h-screen bg-slate-900 text-white overflow-hidden">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 via-black/80 to-gray-800/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/80 to-slate-900/80"></div>
         
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -56,7 +59,7 @@ const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-sm text-gray-400 tracking-[0.2em] uppercase mb-8"
+            className="text-sm text-slate-400 tracking-[0.2em] uppercase mb-8"
           >
             AI MEME GENERATOR
           </motion.p>
@@ -69,7 +72,7 @@ const Home = () => {
           >
             GiggleGen
             <br />
-            <span className="text-4xl md:text-5xl lg:text-6xl text-gray-400 font-extralight">
+            <span className="text-4xl md:text-5xl lg:text-6xl text-slate-400 font-extralight">
               Academy
             </span>
           </motion.h1>
@@ -78,15 +81,38 @@ const Home = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
+            className="space-y-4"
           >
-            <Link to="/generate">
-              <Button 
-                size="lg" 
-                className="bg-transparent border border-white/20 hover:bg-white/10 text-white px-12 py-4 text-base font-light rounded-full backdrop-blur-sm transition-all duration-300"
-              >
-                Start Creating
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <Link to="/generate">
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-12 py-4 text-base font-medium rounded-full transition-all duration-300"
+                >
+                  Start Creating
+                </Button>
+              </Link>
+            ) : (
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/register">
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-12 py-4 text-base font-medium rounded-full transition-all duration-300"
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button 
+                    variant="outline"
+                    size="lg"
+                    className="border-slate-600 hover:bg-slate-800 text-white px-12 py-4 text-base font-light rounded-full backdrop-blur-sm transition-all duration-300"
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+              </div>
+            )}
           </motion.div>
         </motion.div>
 
@@ -100,7 +126,7 @@ const Home = () => {
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
               <div key={stat.label} className="space-y-2">
-                <div className="text-xs text-gray-500 tracking-wider">{stat.label}</div>
+                <div className="text-xs text-slate-500 tracking-wider">{stat.label}</div>
                 <div className="text-2xl md:text-3xl font-light">{stat.value}</div>
               </div>
             ))}
@@ -108,38 +134,23 @@ const Home = () => {
         </motion.div>
       </section>
 
-      {/* Transition Section */}
-      <section className="py-20 px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="max-w-2xl mx-auto"
-        >
-          <div className="w-8 h-8 mx-auto mb-8">
-            <div className="w-full h-full border border-gray-600 rounded-full flex items-center justify-center">
-              <div className="w-2 h-2 bg-white rounded-full"></div>
-            </div>
-          </div>
-          
-          <p className="text-sm text-gray-400 tracking-wide uppercase mb-4">
-            🔗 Learn more about us
-          </p>
-          
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6">
-            What's in it for you?
-          </h2>
-          
-          <p className="text-gray-400 text-lg leading-relaxed">
-            Gain all the skills you need to kick-start your professional 
-            path through mentoring by industry professionals.
-          </p>
-        </motion.div>
-      </section>
-
       {/* Features Section */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6">
+              Powerful Features
+            </h2>
+            <p className="text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto">
+              Everything you need to create, share, and discover amazing memes with cutting-edge AI technology.
+            </p>
+          </motion.div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => {
               const Icon = feature.icon;
@@ -151,27 +162,26 @@ const Home = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="relative group"
                 >
-                  <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl p-8 h-full border border-gray-800/50 hover:border-gray-700/50 transition-all duration-300">
-                    <div className="absolute top-6 right-6 text-6xl font-light text-gray-800 group-hover:text-gray-700 transition-colors duration-300">
+                  <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 h-full border border-slate-700 hover:border-slate-600 transition-all duration-300">
+                    <div className="absolute top-6 right-6 text-6xl font-light text-slate-700 group-hover:text-slate-600 transition-colors duration-300">
                       {feature.number}
                     </div>
                     
                     <div className="relative z-10">
                       <div className="w-12 h-12 mb-6">
-                        <Icon className="w-full h-full text-white" strokeWidth={1} />
+                        <Icon className="w-full h-full text-blue-400" strokeWidth={1} />
                       </div>
                       
                       <h3 className="text-xl font-light mb-4 text-white">
                         {feature.title}
                       </h3>
                       
-                      <p className="text-gray-400 text-sm leading-relaxed">
+                      <p className="text-slate-400 text-sm leading-relaxed">
                         {feature.description}
                       </p>
                     </div>
                     
-                    {/* Subtle gradient overlay on hover */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-600/0 to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                 </motion.div>
               );
@@ -189,33 +199,32 @@ const Home = () => {
           className="max-w-4xl mx-auto"
         >
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-light mb-8">
-            Courses
+            Ready to Start?
           </h2>
           
-          <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Ready to transform your creative ideas into viral content? 
-            Join thousands of creators making the internet laugh.
+          <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Join thousands of creators making the internet laugh with AI-powered meme generation.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link to="/templates">
+            <Link to="/memes">
               <Button 
                 size="lg"
-                className="bg-white hover:bg-gray-100 text-black px-12 py-4 text-base font-medium rounded-full transition-all duration-300"
+                className="bg-white hover:bg-slate-100 text-black px-12 py-4 text-base font-medium rounded-full transition-all duration-300"
               >
                 <Sparkles className="mr-2 h-4 w-4" />
-                Explore Templates
+                Browse Gallery
               </Button>
             </Link>
             
-            <Link to="/generate">
+            <Link to="/trending">
               <Button 
                 variant="outline"
                 size="lg"
-                className="border-white/20 hover:bg-white/10 text-white px-12 py-4 text-base font-light rounded-full backdrop-blur-sm transition-all duration-300"
+                className="border-slate-600 hover:bg-slate-800 text-white px-12 py-4 text-base font-light rounded-full backdrop-blur-sm transition-all duration-300"
               >
-                <Zap className="mr-2 h-4 w-4" />
-                Start Generating
+                <TrendingUp className="mr-2 h-4 w-4" />
+                See Trending
               </Button>
             </Link>
           </div>

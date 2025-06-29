@@ -28,7 +28,7 @@ const Login = () => {
     try {
       await login(username, password);
       toast.success('Welcome back!');
-      navigate('/');
+      navigate('/dashboard');
     } catch (error: any) {
       toast.error(error.response?.data?.detail || 'Login failed. Please try again.');
     } finally {
@@ -37,20 +37,20 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <Card className="shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg">
+        <Card className="shadow-2xl border-0 bg-slate-800/80 backdrop-blur-lg border border-slate-700">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full w-fit">
+            <div className="mx-auto mb-4 p-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full w-fit">
               <LogIn className="h-6 w-6 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-            <CardDescription>Sign in to your account to continue creating memes</CardDescription>
+            <CardTitle className="text-2xl font-bold text-white">Welcome Back</CardTitle>
+            <CardDescription className="text-slate-400">Sign in to your account to continue creating memes</CardDescription>
           </CardHeader>
           
           <CardContent>
@@ -61,7 +61,7 @@ const Login = () => {
                   placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="h-12"
+                  className="h-12 bg-slate-700 border-slate-600 text-white placeholder-slate-400"
                   disabled={isLoading}
                 />
               </div>
@@ -72,13 +72,13 @@ const Login = () => {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="h-12 pr-12"
+                  className="h-12 pr-12 bg-slate-700 border-slate-600 text-white placeholder-slate-400"
                   disabled={isLoading}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-200"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -86,7 +86,7 @@ const Login = () => {
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold"
+                className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -101,9 +101,9 @@ const Login = () => {
             </form>
 
             <div className="mt-6 text-center">
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-slate-400">
                 Don't have an account?{' '}
-                <Link to="/register" className="text-purple-600 hover:text-purple-700 font-semibold">
+                <Link to="/register" className="text-blue-400 hover:text-blue-300 font-semibold">
                   Sign up here
                 </Link>
               </p>

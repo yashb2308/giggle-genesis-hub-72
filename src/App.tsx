@@ -29,7 +29,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white transition-colors duration-300">
+          <div className="min-h-screen bg-slate-900 text-white">
             <Navbar />
             <main className="pt-16">
               <Routes>
@@ -41,13 +41,21 @@ function App() {
                     <Dashboard />
                   </ProtectedRoute>
                 } />
-                <Route path="/templates" element={<Templates />} />
+                <Route path="/templates" element={
+                  <ProtectedRoute>
+                    <Templates />
+                  </ProtectedRoute>
+                } />
                 <Route path="/upload-template" element={
                   <ProtectedRoute>
                     <UploadTemplate />
                   </ProtectedRoute>
                 } />
-                <Route path="/generate" element={<Generate />} />
+                <Route path="/generate" element={
+                  <ProtectedRoute>
+                    <Generate />
+                  </ProtectedRoute>
+                } />
                 <Route path="/generate-batch" element={
                   <ProtectedRoute>
                     <BatchGenerate />
