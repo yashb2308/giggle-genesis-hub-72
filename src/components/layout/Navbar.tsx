@@ -8,14 +8,18 @@ import { Button } from "@/components/ui/button";
 import { 
   Menu, 
   X, 
-  Zap, 
+  Sparkles, 
   Sun, 
   Moon, 
   User, 
   LogOut,
   Image,
   Upload,
-  TrendingUp
+  TrendingUp,
+  LayoutDashboard,
+  Info,
+  Mail,
+  CreditCard
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -36,9 +40,15 @@ const Navbar = () => {
     { name: 'Trending', path: '/trending', icon: TrendingUp },
   ];
 
+  const publicPages = [
+    { name: 'About', path: '/about', icon: Info },
+    { name: 'Pricing', path: '/pricing', icon: CreditCard },
+    { name: 'Contact', path: '/contact', icon: Mail },
+  ];
+
   return (
     <motion.nav 
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700"
+      className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
@@ -50,12 +60,12 @@ const Navbar = () => {
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.5 }}
-              className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg"
+              className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg"
             >
-              <Zap className="h-6 w-6 text-white" />
+              <Sparkles className="h-6 w-6 text-white" />
             </motion.div>
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              MemeGen AI
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              GiggleGen
             </span>
           </Link>
 
@@ -67,7 +77,21 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-1 text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                  className="flex items-center space-x-1 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  <Icon className="h-4 w-4" />
+                  <span>{item.name}</span>
+                </Link>
+              );
+            })}
+            
+            {publicPages.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="flex items-center space-x-1 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   <Icon className="h-4 w-4" />
                   <span>{item.name}</span>
@@ -89,9 +113,10 @@ const Navbar = () => {
 
             {isAuthenticated ? (
               <div className="flex items-center space-x-2">
-                <Link to="/generate">
-                  <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white">
-                    Generate Meme
+                <Link to="/dashboard">
+                  <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
+                    <LayoutDashboard className="h-4 w-4 mr-1" />
+                    Dashboard
                   </Button>
                 </Link>
                 <Link to="/profile">
@@ -115,7 +140,7 @@ const Navbar = () => {
                   <Button variant="ghost">Login</Button>
                 </Link>
                 <Link to="/register">
-                  <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white">
+                  <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
                     Sign Up
                   </Button>
                 </Link>
@@ -140,7 +165,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       {isOpen && (
         <motion.div
-          className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
+          className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
@@ -152,7 +177,22 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-2 px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
+                  className="flex items-center space-x-2 px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span>{item.name}</span>
+                </Link>
+              );
+            })}
+            
+            {publicPages.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="flex items-center space-x-2 px-3 py-2 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
                   <Icon className="h-4 w-4" />
@@ -176,15 +216,15 @@ const Navbar = () => {
             {isAuthenticated ? (
               <>
                 <Link
-                  to="/generate"
-                  className="block px-3 py-2 text-purple-600 font-medium"
+                  to="/dashboard"
+                  className="block px-3 py-2 text-blue-600 font-medium"
                   onClick={() => setIsOpen(false)}
                 >
-                  Generate Meme
+                  Dashboard
                 </Link>
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-2 px-3 py-2 text-gray-700 dark:text-gray-200"
+                  className="flex items-center space-x-2 px-3 py-2 text-slate-700 dark:text-slate-200"
                   onClick={() => setIsOpen(false)}
                 >
                   <User className="h-4 w-4" />
@@ -192,7 +232,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center space-x-2 px-3 py-2 text-gray-700 dark:text-gray-200 w-full text-left"
+                  className="flex items-center space-x-2 px-3 py-2 text-slate-700 dark:text-slate-200 w-full text-left"
                 >
                   <LogOut className="h-4 w-4" />
                   <span>Logout</span>
@@ -202,14 +242,14 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="block px-3 py-2 text-gray-700 dark:text-gray-200"
+                  className="block px-3 py-2 text-slate-700 dark:text-slate-200"
                   onClick={() => setIsOpen(false)}
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="block px-3 py-2 text-purple-600 font-medium"
+                  className="block px-3 py-2 text-blue-600 font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   Sign Up
