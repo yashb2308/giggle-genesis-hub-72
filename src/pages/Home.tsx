@@ -30,7 +30,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800">
       {/* Hero Section */}
       <section className="relative py-20 px-4 text-center">
         <motion.div
@@ -39,13 +39,13 @@ const Home = () => {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Create Epic Memes
             <br />
-            <span className="text-4xl md:text-6xl">with GiggleGen AI</span>
+            <span className="text-4xl md:text-6xl bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">with GiggleGen AI</span>
           </h1>
           
-          <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Transform your ideas into viral memes instantly. Our AI understands humor, 
             context, and trending formats to create memes that actually make people laugh.
           </p>
@@ -54,7 +54,7 @@ const Home = () => {
             <Link to="/generate">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
+                className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-8 py-3 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
                 Generate Meme Now
@@ -65,7 +65,7 @@ const Home = () => {
               <Button 
                 variant="outline" 
                 size="lg"
-                className="px-8 py-3 text-lg font-semibold rounded-full border-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 border-blue-200 dark:border-blue-700"
+                className="px-8 py-3 text-lg font-semibold rounded-full border-2 hover:bg-gray-800 border-gray-600 text-white hover:text-white"
               >
                 Explore Gallery
               </Button>
@@ -107,7 +107,7 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-white/50 dark:bg-slate-800/50">
+      <section className="py-20 px-4 bg-gray-900/50">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -115,10 +115,10 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-4xl font-bold mb-4 text-white">
               Why Choose GiggleGen?
             </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300">
+            <p className="text-xl text-gray-300">
               The most advanced meme creation platform on the internet
             </p>
           </motion.div>
@@ -132,15 +132,15 @@ const Home = () => {
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center p-6 rounded-2xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-200 dark:border-slate-700"
+                  className="text-center p-6 rounded-2xl bg-gray-800/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-700"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mb-4">
-                    <Icon className="h-8 w-8 text-white" />
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full mb-4">
+                    <Icon className="h-8 w-8 text-black" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 text-slate-900 dark:text-white">
+                  <h3 className="text-xl font-semibold mb-2 text-white">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-600 dark:text-slate-300">
+                  <p className="text-gray-300">
                     {feature.description}
                   </p>
                 </motion.div>
@@ -156,18 +156,18 @@ const Home = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto text-center bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-12 text-white"
+          className="max-w-4xl mx-auto text-center bg-gradient-to-r from-gray-800 to-gray-900 rounded-3xl p-12 text-white border border-gray-700"
         >
           <h2 className="text-4xl font-bold mb-4">
             Ready to Go Viral?
           </h2>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-xl mb-8 text-gray-300">
             Join thousands of creators making the internet laugh, one meme at a time.
           </p>
           <Link to="/register">
             <Button 
               size="lg"
-              className="bg-white text-blue-600 hover:bg-slate-100 px-8 py-3 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
+              className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-8 py-3 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
             >
               Start Creating Free
             </Button>
