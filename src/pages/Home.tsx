@@ -42,7 +42,7 @@ const Home = () => {
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             Create Epic Memes
             <br />
-            <span className="text-4xl md:text-6xl bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">with GiggleGen AI</span>
+            <span className="text-4xl md:text-6xl bg-gradient-to-r from-gray-100 to-white bg-clip-text text-transparent">with GiggleGen AI</span>
           </h1>
           
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
@@ -54,7 +54,7 @@ const Home = () => {
             <Link to="/generate">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-8 py-3 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
+                className="bg-white hover:bg-gray-100 text-black px-8 py-3 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
                 Generate Meme Now
@@ -134,7 +134,7 @@ const Home = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="text-center p-6 rounded-2xl bg-gray-800/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-700"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full mb-4">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4">
                     <Icon className="h-8 w-8 text-black" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2 text-white">
@@ -167,7 +167,7 @@ const Home = () => {
           <Link to="/register">
             <Button 
               size="lg"
-              className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black px-8 py-3 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
+              className="bg-white hover:bg-gray-100 text-black px-8 py-3 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
             >
               Start Creating Free
             </Button>
