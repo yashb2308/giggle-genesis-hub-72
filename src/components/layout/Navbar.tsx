@@ -13,7 +13,7 @@ import {
   Moon, 
   User, 
   LogOut,
-  Gallery,
+  Image,
   Upload,
   TrendingUp
 } from 'lucide-react';
@@ -31,7 +31,7 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { name: 'Gallery', path: '/memes', icon: Gallery },
+    { name: 'Gallery', path: '/memes', icon: Image },
     { name: 'Templates', path: '/templates', icon: Upload },
     { name: 'Trending', path: '/trending', icon: TrendingUp },
   ];

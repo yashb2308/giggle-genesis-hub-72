@@ -6,7 +6,7 @@ import { memesAPI } from '../api/memes';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Heart, Eye, User, TrendingUp, Fire } from 'lucide-react';
+import { Heart, Eye, User, TrendingUp, Flame } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const Trending = () => {
@@ -58,11 +58,11 @@ const Trending = () => {
           className="text-center mb-12"
         >
           <div className="flex items-center justify-center mb-4">
-            <Fire className="h-8 w-8 text-orange-500 mr-3" />
+            <Flame className="h-8 w-8 text-orange-500 mr-3" />
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
               Trending Memes
             </h1>
-            <Fire className="h-8 w-8 text-orange-500 ml-3" />
+            <Flame className="h-8 w-8 text-orange-500 ml-3" />
           </div>
           <p className="text-xl text-gray-600 dark:text-gray-300">
             The hottest memes that are going viral right now
@@ -181,7 +181,7 @@ const Trending = () => {
 
         {!isLoading && trendingMemes.length === 0 && (
           <div className="text-center py-12">
-            <Fire className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+            <Flame className="h-16 w-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">
               No trending memes yet
             </h3>
