@@ -1,15 +1,11 @@
 
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Button } from "@/components/ui/button";
 import { 
   Menu, 
   X, 
-  Sparkles, 
-  User, 
-  LogOut,
   Image,
   Upload,
   TrendingUp,
@@ -21,53 +17,25 @@ import {
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-    setIsOpen(false);
-  };
+  const { isAuthenticated } = useAuth();
 
   const publicNavItems = [
     { name: 'Gallery', path: '/memes', icon: Image },
     { name: 'Trending', path: '/trending', icon: TrendingUp },
-  ];
-
-  const protectedNavItems = [
-    { name: 'Templates', path: '/templates', icon: Upload },
-  ];
-
-  const publicPages = [
     { name: 'About', path: '/about', icon: Info },
     { name: 'Pricing', path: '/pricing', icon: CreditCard },
     { name: 'Contact', path: '/contact', icon: Mail },
   ];
 
+  const protectedNavItems = [
+    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+    { name: 'Templates', path: '/templates', icon: Upload },
+  ];
+
   return (
-    <motion.nav 
-      className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-lg border-b border-slate-700"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <nav className="w-full bg-black border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <motion.div
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.5 }}
-              className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg"
-            >
-              <Sparkles className="h-6 w-6 text-white" />
-            </motion.div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-              GiggleGen
-            </span>
-          </Link>
-
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {publicNavItems.map((item) => {
@@ -76,7 +44,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-1 text-slate-300 hover:text-blue-400 transition-colors"
+                  className="flex items-center space-x-1 text-white hover:text-gray-300 transition-colors font-light"
                 >
                   <Icon className="h-4 w-4" />
                   <span>{item.name}</span>
@@ -90,77 +58,22 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-1 text-slate-300 hover:text-blue-400 transition-colors"
+                  className="flex items-center space-x-1 text-white hover:text-gray-300 transition-colors font-light"
                 >
                   <Icon className="h-4 w-4" />
                   <span>{item.name}</span>
                 </Link>
               );
             })}
-            
-            {publicPages.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="flex items-center space-x-1 text-slate-300 hover:text-blue-400 transition-colors"
-                >
-                  <Icon className="h-4 w-4" />
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* Auth Section */}
-          <div className="hidden md:flex items-center space-x-4">
-            {isAuthenticated ? (
-              <div className="flex items-center space-x-2">
-                <Link to="/dashboard">
-                  <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
-                    <LayoutDashboard className="h-4 w-4 mr-1" />
-                    Dashboard
-                  </Button>
-                </Link>
-                <Link to="/profile">
-                  <Button variant="ghost" size="sm" className="flex items-center space-x-1 text-slate-300 hover:text-white hover:bg-slate-700">
-                    <User className="h-4 w-4" />
-                    <span>{user?.username}</span>
-                  </Button>
-                </Link>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleLogout}
-                  className="p-2 text-slate-300 hover:text-white hover:bg-slate-700"
-                >
-                  <LogOut className="h-4 w-4" />
-                </Button>
-              </div>
-            ) : (
-              <div className="flex items-center space-x-2">
-                <Link to="/login">
-                  <Button variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-700">
-                    Login
-                  </Button>
-                </Link>
-                <Link to="/register">
-                  <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white">
-                    Sign Up
-                  </Button>
-                </Link>
-              </div>
-            )}
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden ml-auto">
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-slate-300 hover:text-white"
+              className="p-2 text-white hover:text-gray-300"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -170,12 +83,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <motion.div
-          className="md:hidden bg-slate-900 border-t border-slate-700"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-        >
+        <div className="md:hidden bg-black border-t border-white/10">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {publicNavItems.map((item) => {
               const Icon = item.icon;
@@ -183,7 +91,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-2 px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white rounded-md"
+                  className="flex items-center space-x-2 px-3 py-2 text-white hover:bg-white/5 rounded-md font-light"
                   onClick={() => setIsOpen(false)}
                 >
                   <Icon className="h-4 w-4" />
@@ -198,7 +106,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="flex items-center space-x-2 px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white rounded-md"
+                  className="flex items-center space-x-2 px-3 py-2 text-white hover:bg-white/5 rounded-md font-light"
                   onClick={() => setIsOpen(false)}
                 >
                   <Icon className="h-4 w-4" />
@@ -206,69 +114,10 @@ const Navbar = () => {
                 </Link>
               );
             })}
-            
-            {publicPages.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="flex items-center space-x-2 px-3 py-2 text-slate-300 hover:bg-slate-800 hover:text-white rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })}
-
-            {isAuthenticated ? (
-              <>
-                <Link
-                  to="/dashboard"
-                  className="block px-3 py-2 text-blue-400 font-medium"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/profile"
-                  className="flex items-center space-x-2 px-3 py-2 text-slate-300"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <User className="h-4 w-4" />
-                  <span>{user?.username}</span>
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center space-x-2 px-3 py-2 text-slate-300 w-full text-left"
-                >
-                  <LogOut className="h-4 w-4" />
-                  <span>Logout</span>
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="block px-3 py-2 text-slate-300"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="block px-3 py-2 text-blue-400 font-medium"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Sign Up
-                </Link>
-              </>
-            )}
           </div>
-        </motion.div>
+        </div>
       )}
-    </motion.nav>
+    </nav>
   );
 };
 

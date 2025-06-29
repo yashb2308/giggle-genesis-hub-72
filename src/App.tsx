@@ -29,9 +29,9 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <div className="min-h-screen bg-slate-900 text-white">
+          <div className="min-h-screen bg-black text-white font-light">
             <Navbar />
-            <main className="pt-16">
+            <main>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
