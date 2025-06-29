@@ -12,7 +12,8 @@ import {
   LayoutDashboard,
   Info,
   Mail,
-  CreditCard
+  CreditCard,
+  Home
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -20,6 +21,7 @@ const Navbar = () => {
   const { isAuthenticated } = useAuth();
 
   const publicNavItems = [
+    { name: 'Home', path: '/', icon: Home },
     { name: 'Gallery', path: '/memes', icon: Image },
     { name: 'Trending', path: '/trending', icon: TrendingUp },
     { name: 'About', path: '/about', icon: Info },
@@ -35,8 +37,8 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-black border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Desktop Navigation */}
+        <div className="flex justify-center items-center h-16">
+          {/* Desktop Navigation - Centered */}
           <div className="hidden md:flex items-center space-x-8">
             {publicNavItems.map((item) => {
               const Icon = item.icon;

@@ -44,14 +44,14 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white font-light overflow-hidden">
+    <div className="min-h-screen bg-black text-white font-inter overflow-hidden">
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-4">
+      <section className="min-h-screen flex flex-col items-center justify-center px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-center max-w-4xl mx-auto"
+          className="text-center max-w-4xl mx-auto flex-1 flex flex-col justify-center"
         >
           <motion.p
             initial={{ opacity: 0 }}
@@ -66,20 +66,16 @@ const Home = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-light mb-8 leading-none"
+            className="text-6xl md:text-8xl lg:text-9xl font-light mb-12 leading-none"
           >
-            GiggleGen
-            <br />
-            <span className="text-4xl md:text-5xl lg:text-6xl text-gray-400 font-extralight">
-              Academy
-            </span>
+            Academy
           </motion.h1>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="space-y-4"
+            className="space-y-6 mb-16"
           >
             {isAuthenticated ? (
               <Link to="/generate">
@@ -91,7 +87,7 @@ const Home = () => {
                 </Button>
               </Link>
             ) : (
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <Link to="/register">
                   <Button 
                     size="lg" 
@@ -114,12 +110,12 @@ const Home = () => {
           </motion.div>
         </motion.div>
 
-        {/* Stats Bar */}
+        {/* Stats Bar - Fixed positioning */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="absolute bottom-20 left-0 right-0 px-4"
+          className="w-full px-4 pb-20"
         >
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat) => (
@@ -133,7 +129,7 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-black">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -141,7 +137,7 @@ const Home = () => {
             transition={{ duration: 1 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6 text-white">
               Powerful Features
             </h2>
             <p className="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto font-light">
@@ -187,14 +183,14 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 px-4 text-center">
+      <section className="py-32 px-4 text-center bg-black">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light mb-8">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light mb-8 text-white">
             Ready to Start?
           </h2>
           
